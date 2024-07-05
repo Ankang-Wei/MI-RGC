@@ -169,7 +169,7 @@ if __name__ == "__main__":
     met_sim = np.loadtxt('data/V.csv', delimiter=',')
     dis_sim = np.loadtxt('data/H.csv', delimiter=',')
     met_dis_matrix = np.loadtxt('data/VH.csv', delimiter=',')
-    mat_m = np.loadtxt('data/high3-JH-0.99-pp-adj.csv', delimiter=',')
+    mat_m = np.loadtxt('data/high2-adj.csv', delimiter=',')
     epoch = 4000
     emb_dim = 64
     lr = 0.01
