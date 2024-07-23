@@ -1,6 +1,6 @@
 ## MI-RGC
 
-Code and Datasets for "MI-RGC: Mutual information-based feature augmentation for predicting phage-host interactions with regional graph convolution"
+Code and Datasets for "MI-RGC: A novel framework for predicting phage-host interactions via feature augmentation and regional graph convolution"
 
 #### Developers
 
