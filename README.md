@@ -1,38 +1,38 @@
 ## MI-RGC
 
-“MI-RGC：基于相互信息特征增强，用于通过区域图卷积预测载体关联”代码和数据集
+Code and Datasets for "MI-RGC: Mutual information-based feature augmentation for predicting phage-host interactions with regional graph convolution"
 
-珀
+#### Developers
 
-华中师范大学数学与统计学院魏安康 (weiankng@mails.ccun.edu.cn) 和蒋兴鹏 (xpjiang@mail.ccnu.edu.cn)。
+Ankang Wei (weiankng@mails.ccun.edu.cn) and Xingpeng Jiang (xpjiang@mail.ccnu.edu.cn) from School of Mathematics and Statistics, Central China Normal University.
 
-咖啡
+#### Datasets
 
-- data/V.zip：噬菌体的余弦相似度。
-- data/H.csv：优先级的余弦相似度。
-- data/high2-adj.zip 是经过过滤并合并后的噬菌体的信息。
-- data/high-1909.zip 是每个样本中噬菌体的状态信息。
-- data/VH.zip：噬菌体-宿主关联。如果噬菌体与宿主关联，则其标签为 1。否则，标签为 0。
+- data/V.zip: Cosine similarity of phage.
+- data/H.csv: Cosine similarity of host.
+- data/high2-adj.zip is the mutual information of phages after filtering and merging.
+- data/high-1909.zip is the state information of phages in each sample.
+- data/VH.zip: phage-host associations. If the phage is associated with host, its label will be 1. Otherwise, the label will be 0.
 
 
-＃＃＃＃代码
+#### Code
 
-＃＃＃＃工具
+#### Tool
 
-在注释宏基因组数据时，我们参考了 kneaddata [ https://github.com/biobakery/kneaddata ]和 kraken2 [ https://github.com/DerrickWood/kraken2 ]进行工具下载和安装。
+When annotating metagenomic data, users can refer to kneaddata [https://github.com/biobakery/kneaddata] and kraken2 [https://github.com/DerrickWood/kraken2] for tool downloading and installation. 
 
-kneaddata在宿主过程中使用的数据集是human_hg38_refMrna。
-只需为此目的使用自定义数据。有关构建数据的详细说明，请参阅[ https://github.com/biobakery/kneaddata ]。
+The dataset used by kneaddata in the host removal process is human_hg38_refMrna. 
+You can also use a custom dataset for this purpose. Detailed instructions for constructing the dataset can be found at [https://github.com/biobakery/kneaddata].
 
 ```
-kneaddata_database--下载人类基因组 bowtie2
+kneaddata_database --download human_genome bowtie2
 kneaddata -i1 /home/q1.fastq.gz -i2 /home/q2.fastq.gz -o output_dir -t 50 -p 50 -db /home/human_hg38_refMrna
 ```
 
-在注释过程中，Kraken2 使用标准数据库，该数据库大小为 55GB，包含 RefSeq 古细菌、 细菌、病毒、质粒、人类 1 和 UniVec_Core。用户还可以使用自定义数据库；有关如何构建数据库的说明，请参阅[ https://github.com/DerrickWood/kraken2 ]。数据库可从[ https://benlangmead.github.io/aws-indexes/k2 ]下载。Bracken 和 Kraken2 都使用相同的数据库。
+During the annotation process, Kraken2 uses the Standard database, which is 55GB in size and includes RefSeq archaea, bacteria, viral, plasmid, human1, and UniVec_Core. Users can also use a custom database; for instructions on how to construct one, please refer to [https://github.com/DerrickWood/kraken2]. The database can be downloaded from [https://benlangmead.github.io/aws-indexes/k2]. Both Bracken and Kraken2 use the same database.
 
 ```
-kraken2 --db /home/Standard --threads 20 --report flag --report TEST.report --output TEST.output --paired q1.fastq.gz q2.fastq.gz
+kraken2 --db /home/Standard  --threads 20 --report flag --report TEST.report --output TEST.output  --paired q1.fastq.gz q2.fastq.gz
 bracken -d /home/Standard -i TEST.report -o TEST.S.bracken -w TEST.S.bracken.report -r 150 -l S
 ```
 
@@ -59,7 +59,7 @@ python main.py
 
 Users can use their **own data** to train prediction models. 
 
-对于**新宿主/噬菌体**，用户可以从NCBI数据库下载DNA，并使用code/features.py计算从DNA衍生的特征。
+For **new host/phage**, users can download the DNA from the NCBI database, and use code/features.py to compute the features derived from DNA.
 
 **Note:** 
 
