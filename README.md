@@ -65,7 +65,6 @@ Users can use their **own data** to train prediction models.
 Users first need to download the fasta files for Phage and Host, resulting in the corresponding name directories phage_name.csv and host_name.csv. Then, they should use the **code/feature.py** file to compute the k-mer features for the entities.
 
 ```
-cd data/sample
 python feature.py
 ```
 Then, use **code/cos_sim.py** to process the obtained k-mer feature CSV files to generate the similarity matrix for Phages (V.csv) and the similarity matrix for Hosts (H.csv).
