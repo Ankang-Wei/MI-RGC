@@ -13,6 +13,7 @@ Ankang Wei (weiankng@mails.ccun.edu.cn) and Xingpeng Jiang (xpjiang@mail.ccnu.ed
 - data/high2-adj.zip is the mutual information of phages after filtering and merging.
 - data/high-1909.zip is the state information of phages in each sample.
 - data/VH.zip: phage-host associations. If the phage is associated with host, its label will be 1. Otherwise, the label will be 0.
+-data/sample
 
 
 #### Code
@@ -54,18 +55,38 @@ The required packages are as follows:
 ```
 git clone https://github.com/weiankang258369/MI-RGC
 cd MI-RGC/code
-python main.py
+python main_mi.py
 ```
+
+##### User
 
 Users can use their **own data** to train prediction models. 
 
-For **new host/phage**, users can download the DNA from the NCBI database, and use code/features.py to compute the features derived from DNA.
+Users first need to download the fasta files for Phage and Host, resulting in the corresponding name directories phage_name.csv and host_name.csv. Then, they should use the **code/feature.py** file to compute the k-mer features for the entities.
+
+```
+cd data/sample
+python feature.py
+```
+Then, use **code/cos_sim.py** to process the obtained k-mer feature CSV files to generate the similarity matrix for Phages (V.csv) and the similarity matrix for Hosts (H.csv).
+
+```
+python cos_sim.py
+```
+Input phage_name.csv and host_name.csv to use **VH.py** to obtain the association matrix (VH.csv).
+
+```
+python VH.py
+```
+If the user has generated the mutual information file (MI.csv) using **high-2.cpp**, then they can input high2-adj.csv, V.csv, H.csv, and VH.csv into the **main_mi.py** file to run main.py. If MI.csv has not been generated, they can also input V.csv, H.csv, and VH.csv into **main.py** to obtain the prediction results.
+
+```
+python main.py
+```
 
 **Note:** 
 
-In code/features.py, users need to install the iLearn tool [https://ilearn.erc.monash.edu/ or https://github.com/Superzchen/iLearn] and prepare fasta file, this file is DNA sequences of all phages/hosts. (when you use iLearn to compute the DNA features, you should set the parameters k of Kmer as 3.)
-
-Then users use main.py to predict PHI.
+If the user wants to predict the hosts of phages but does not have their own known associations, they can use the data/PHI_pairs.csv file to obtain the dataset used in this study. During this process, the target phages should simply be merged into the phage directory in the PHI dataset.
 
 
 #### Contact
