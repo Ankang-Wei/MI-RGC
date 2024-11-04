@@ -77,8 +77,7 @@ Input phage_name.csv and host_name.csv to use **VH.py** to obtain the associatio
 ```
 python VH.py
 ```
-If the user has generated the mutual information file (MI.csv) using **high-2.cpp**, then they can input high2-adj.csv, V.csv, H.csv, and VH.csv into the **main_mi.py** file to run main.py. If MI.csv has not been generated, they can also input V.csv, H.csv, and VH.csv into **main.py** to obtain the prediction results.
-
+If the user has generated the mutual information file high2-adj.csv using **high-2.cpp**, they can input high2-adj.csv, V.csv, H.csv, and VH.csv into **main.py** to run the script. If high2-adj.csv has not been generated, the user can input V.csv, H.csv, and VH.csv into main.py and delete the section related to high2-adj.csv in the input part of **main.py**. Running this will also yield prediction results, but the embedding process corresponding to this result will no longer include the feature enhancement module.
 ```
 python main.py
 ```
