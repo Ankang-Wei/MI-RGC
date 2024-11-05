@@ -13,9 +13,9 @@ Ankang Wei (weiankng@mails.ccun.edu.cn) and Xingpeng Jiang (xpjiang@mail.ccnu.ed
 - data/high2-adj.zip is the mutual information of phages after filtering and merging.
 - data/high-1909.zip is the state information of phages in each sample.
 - data/VH.zip: phage-host associations. If the phage is associated with host, its label will be 1. Otherwise, the label will be 0.
--data/PHI_pairs.csv: The PHIs for the PHI dataset, including the names of the phages, hosts, and their corresponding NCBI accession numbers.
--data/CHERRY_pairs.csv: The PHIs for the CHERRY dataset, including the names of the phages, hosts, and their corresponding NCBI accession numbers.
--data/PHD_pairs.csv: The PHIs for the PHD dataset, including the names of the phages, hosts, and their corresponding NCBI accession numbers.
+- data/PHI_pairs.csv: The PHIs for the PHI dataset, including the names of the phages, hosts, and their corresponding NCBI accession numbers.
+- data/CHERRY_pairs.csv: The PHIs for the CHERRY dataset, including the names of the phages, hosts, and their corresponding NCBI accession numbers.
+- data/PHD_pairs.csv: The PHIs for the PHD dataset, including the names of the phages, hosts, and their corresponding NCBI accession numbers.
 
 #### Code
 
