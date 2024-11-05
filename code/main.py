@@ -40,11 +40,6 @@ def PredictScore(train_met_dis_matrix, met_matrix, dis_matrix, seed, epochs, emb
     adj4 = constructHNet(train_met_dis_matrix, met_mat4, dis_mat)  # 假设有一个新的构造邻接矩阵的函数
     adj4 = sp.csc_matrix(adj4)
 
-    # # 构造第二个邻接矩阵 adj5
-    met_mat5 = np.where((met_matrix > 0.98) | (met_matrix < 0.97), 0, met_matrix)
-    adj5 = constructHNet(train_met_dis_matrix, met_mat5, dis_mat)  # 假设有一个新的构造邻接矩阵的函数
-    adj5 = sp.csc_matrix(adj5)
-
 
     #构造第二个邻接矩阵 adj5
     met_mat5 = np.multiply(mat_m,met_matrix)
@@ -154,6 +149,16 @@ def cross_validation_experiment(met_dis_matrix, met_matrix, dis_matrix, seed, ep
         met_disease_res = PredictScore(
             train_matrix, met_matrix, dis_matrix, seed, epochs, emb_dim, dp, lr,  adjdp,simwh,mat_m)
         predict_y_proba = met_disease_res.reshape(met_len, dis_len)
+       # 将 predict_y_proba 保存为 CSV 文件
+        predict_y_proba_df = pd.DataFrame(predict_y_proba)
+        predict_y_proba_df.to_csv(f"predict_y_proba_100_fold_{k + 1}.csv", index=False, header=False)
+        file_names = [f"predict_y_proba_100_fold_{k + 1}.csv" for k in range(5)]
+
+        data_frames = [pd.read_csv(file) for file in file_names]
+        combined_data = np.array([df.values for df in data_frames])
+        mean_values = np.mean(combined_data, axis=0)
+        mean_df = pd.DataFrame(mean_values)
+        mean_df.to_csv("average_predict_y_proba.csv", index=False, header=False)
 
         metric_tmp = cv_model_evaluate(
             met_dis_matrix, predict_y_proba, train_matrix)
@@ -169,8 +174,8 @@ if __name__ == "__main__":
     met_sim = np.loadtxt('data/V.csv', delimiter=',')
     dis_sim = np.loadtxt('data/H.csv', delimiter=',')
     met_dis_matrix = np.loadtxt('data/VH.csv', delimiter=',')
-    mat_m = np.loadtxt('data/high3-JH-0.99-pp-adj.csv', delimiter=',')
-    epoch = 4000
+    mat_m = np.loadtxt('data/high2-adj.csv', delimiter=',')
+    epoch = 500
     emb_dim = 64
     lr = 0.01
     adjdp = 0.5
